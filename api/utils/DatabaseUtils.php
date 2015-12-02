@@ -11,7 +11,9 @@
 				$dsn = "mysql:dbname=asp;host=127.0.0.1";
 				$this->dbc = new PDO($dsn, "root", "");
 			} catch (PDOException $e) {
-				echo "{\"etat\" :\"0\", \"message\" :\"Erreur de connexion à la base de données\"}";
+				return array(
+					"erreur" => "Erreur de connexion à la base de données!"
+				);
 			}
 		}
 	}
