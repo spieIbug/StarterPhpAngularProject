@@ -16,10 +16,10 @@
 	switch($method){
 		case "getUserRoles":{
 			if (isset($_GET)) {
-				if (!empty($_GET['user'])){
+				if (!empty($_GET['user'])&&!empty($_GET['uid'])){
 					include_once("Controller.php");
 					$controller = new RolesController();
-					$response = $controller->getUserRoles($user);
+					$response = $controller->getUserRoles($user, $uid);
 					echo json_encode($response);
 				} else echo "[{\"error\":\"query params error\"}]" ;
 			}
@@ -27,11 +27,12 @@
 			break;
 		}
 		case "login":{
-			if (isset($_GET)) {
-				if (!empty($_GET['user'])&&!empty($_GET['pwd'])){
+			$user = json_decode(file_get_contents('php://input')); // get data from json header
+			if (isset($user)) {
+				if (isset($user->user)&&isset($user->pwd)){
 					include_once("Controller.php");
 					$controller = new RolesController();
-					$response = $controller->login($user, $pwd);
+					$response = $controller->login($user->user,$user->pwd);
 					echo json_encode($response);
 				} else echo "[{\"error\":\"query params error\"}]" ;
 			}
@@ -48,6 +49,19 @@
 				} else echo "[{\"error\":\"query params error\"}]" ;
 			}
 			else echo "[{\"error\":\"query params error\"}]" ;			
+			break;
+		}
+		case"isLogged":{
+			$user = json_decode(file_get_contents('php://input')); // get data from json header
+			if (isset($user)) {
+				if (isset($user->user)&&isset($user->uid)){
+					include_once("Controller.php");
+					$controller = new RolesController();
+					$response = $controller->isLogged($user->user,$user->uid);
+					echo json_encode($response);
+				} else echo "[{\"error\":\"query params error #4\"}]" ;
+			}
+			else echo "[{\"error\":\"user not set\"}]" ;			
 			break;
 		}
 		default :{
