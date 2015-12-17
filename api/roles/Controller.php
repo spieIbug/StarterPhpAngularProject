@@ -25,7 +25,7 @@
 								."AND usr.flag=1 ");
 							$stmt->bindParam('user', $user, PDO::PARAM_STR);
 							$stmt->execute();
-							$result=$stmt->fetchAll(PDO::FETCH_ASSOC);	
+							$result=$stmt->fetchAll(PDO::FETCH_ASSOC);
 						} else {
 							$result = array(
 								"erreur" => "base de donnees Offline!"
