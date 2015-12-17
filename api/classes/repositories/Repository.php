@@ -11,6 +11,6 @@ interface Repository {
     public function getAllElements();
     public function saveElement($object);
     public function saveAllElements($arrayOfObjects);
-    public function updateElementById($id);
+    public function updateElement($object);
     public function deleteElementById($id);
 }

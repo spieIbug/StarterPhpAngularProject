@@ -13,7 +13,7 @@ class ShowPasses extends HtmlReporter{
         $breadcrumb = $this->getTestList();
         array_shift($breadcrumb);
         print implode("->", $breadcrumb);
-        print "->$message<br />\n";
+        print "<br>$message<br />\n";
     }
 
     /**

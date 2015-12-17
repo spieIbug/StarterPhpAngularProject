@@ -100,11 +100,20 @@ class UsersRepository implements Repository{
     }
 
     /**
-     * @param $id
+     * @param $object
      * @return mixed
      */
-    public function updateElementById($id) {
-        // TODO: Implement updateElementById() method.
+    public function updateElement($object) {
+        $stmt = $this->dbConnProvider->dbc->prepare("UPDATE users SET login = :login,pwd =:pwd,flag =:flag WHERE id=:id");
+        $id = $object->getId();
+        $login = $object->getLogin();
+        $pwd = $object->getPwd();
+        $flag = $object->getFlag();
+        $stmt->bindParam('id', $id, PDO::PARAM_STR);
+        $stmt->bindParam('login', $login, PDO::PARAM_STR);
+        $stmt->bindParam('pwd', $pwd, PDO::PARAM_STR);
+        $stmt->bindParam('flag', $flag, PDO::PARAM_INT);
+        return $stmt->execute();
     }
 
     /**
@@ -112,7 +121,9 @@ class UsersRepository implements Repository{
      * @return mixed
      */
     public function deleteElementById($id) {
-        // TODO: Implement deleteElementById() method.
+        $stmt = $this->dbConnProvider->dbc->prepare("DELETE FROM users WHERE id=:id");
+        $stmt->bindParam('id', $id, PDO::PARAM_STR);
+        return $stmt->execute();
     }
 
 

@@ -65,11 +65,18 @@ class RolesRepository implements Repository {
     }
 
     /**
-     * @param $id
+     * @param $object
      * @return mixed
      */
-    public function updateElementById($id) {
-        // TODO: Implement updateElementById() method.
+    public function updateElement($object) {
+        $stmt = $this->dbConnProvider->dbc->prepare("UPDATE roles SET libelle = :libelle,flag =:flag WHERE id=:id");
+        $id = $object->getId();
+        $libelle = $object->getLibelle();
+        $flag = $object->getFlag();
+        $stmt->bindParam('id', $id, PDO::PARAM_STR);
+        $stmt->bindParam('libelle', $libelle, PDO::PARAM_STR);
+        $stmt->bindParam('flag', $flag, PDO::PARAM_INT);
+        return $stmt->execute();
     }
 
     /**
@@ -77,8 +84,12 @@ class RolesRepository implements Repository {
      * @return mixed
      */
     public function deleteElementById($id) {
-        // TODO: Implement deleteElementById() method.
+        $stmt = $this->dbConnProvider->dbc->prepare("DELETE FROM roles WHERE id=:id");
+        $stmt->bindParam('id', $id, PDO::PARAM_STR);
+        return $stmt->execute();
     }
+
+
 
 
 }
