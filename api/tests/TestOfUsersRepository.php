@@ -6,6 +6,12 @@ require_once('../classes/repositories/UsersRepository.php');
 require_once('../classes/model/User.php');
 
 class TestOfUsersRepository extends UnitTestCase {
+    function setUp() {
+        echo "<div style='border: 2px solid;border-radius: 5px;padding: 10px;margin: 5px;'>";
+    }
+    function tearDown() {
+        echo "</div>";
+    }
     function testShouldNotBeEqualElementById1() {
         $userExpected =  new User();
         $userExpected->setId(2);
@@ -27,7 +33,7 @@ class TestOfUsersRepository extends UnitTestCase {
         $this->assertEqual($userExpected, $user);
     }
     function testShouldSizeBeOf2() {
-        $expectedSize = 3;
+        $expectedSize = 4;
         $userRepository = new UsersRepository();
         $users = $userRepository->getAllElements();
         $this->assertEqual(sizeof($users), $expectedSize);

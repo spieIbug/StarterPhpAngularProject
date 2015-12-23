@@ -6,8 +6,10 @@ SimpleTest::prefer(new ShowPasses());
 class AllTests extends TestSuite {
     function __construct() {
         parent::__construct('All tests');
+
         $this->addFile(dirname(__FILE__).'/TestOfUsersRepository.php');
         $this->addFile(dirname(__FILE__).'/TestOfRolesRepository.php');
+        $this->addFile(dirname(__FILE__).'/TestOfUserRolesRepository.php');
         $this->addFile(dirname(__FILE__).'/TestOfUsersJsonController.php');
     }
 }

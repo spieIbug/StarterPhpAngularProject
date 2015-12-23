@@ -1,7 +1,7 @@
 <?php
-include_once(dirname(__FILE__) . '/Repository.php');
-include_once(dirname(__FILE__) . '/../utils/DatabaseUtils.php');
-include_once(dirname(__FILE__) . '/../model/User.php');
+require_once(dirname(__FILE__) . '/Repository.php');
+require_once(dirname(__FILE__) . '/../utils/DatabaseUtils.php');
+require_once(dirname(__FILE__) . '/../model/User.php');
 /**
  * Created by PhpStorm.
  * User: yacmed
@@ -18,7 +18,6 @@ class UsersRepository implements Repository{
     public function __construct() {
         $this->dbConnProvider = new DatabaseUtils();
     }
-
     /**
      * @param $id
      * @return mixed
@@ -31,7 +30,6 @@ class UsersRepository implements Repository{
         $stmt->closeCursor();
         return $user;
     }
-
     /**
      * @param $login
      * @param $pwd
@@ -47,7 +45,6 @@ class UsersRepository implements Repository{
             return $this->user;
         } else return false;
     }
-
     /**
      * @return mixed
      */
@@ -75,7 +72,6 @@ class UsersRepository implements Repository{
         $users=$stmt->fetchAll(PDO::FETCH_CLASS, 'User');
         return $users;
     }
-
     /**
      * @param $object
      * @return mixed
@@ -90,7 +86,6 @@ class UsersRepository implements Repository{
         $stmt->bindParam('flag', $flag, PDO::PARAM_INT);
         return $stmt->execute();
     }
-
     /**
      * @param $arrayOfObjects
      * @return mixed
@@ -98,7 +93,6 @@ class UsersRepository implements Repository{
     public function saveAllElements($arrayOfObjects) {
         // TODO: Implement saveAllElements() method.
     }
-
     /**
      * @param $object
      * @return mixed
@@ -115,7 +109,6 @@ class UsersRepository implements Repository{
         $stmt->bindParam('flag', $flag, PDO::PARAM_INT);
         return $stmt->execute();
     }
-
     /**
      * @param $id
      * @return mixed
@@ -125,6 +118,5 @@ class UsersRepository implements Repository{
         $stmt->bindParam('id', $id, PDO::PARAM_STR);
         return $stmt->execute();
     }
-
 
 }

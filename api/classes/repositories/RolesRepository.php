@@ -1,7 +1,7 @@
 <?php
-include_once(dirname(__FILE__) . '/Repository.php');
-include_once(dirname(__FILE__) . '/../utils/DatabaseUtils.php');
-include_once(dirname(__FILE__) . '/../model/Role.php');
+require_once(dirname(__FILE__) . '/Repository.php');
+require_once(dirname(__FILE__) . '/../utils/DatabaseUtils.php');
+require_once(dirname(__FILE__) . '/../model/Role.php');
 /**
  * Created by PhpStorm.
  * User: yacmed
@@ -53,7 +53,8 @@ class RolesRepository implements Repository {
         $flag = $object->getFlag();
         $stmt->bindParam('libelle', $libelle, PDO::PARAM_STR);
         $stmt->bindParam('flag', $flag, PDO::PARAM_INT);
-        return $stmt->execute();
+        $stmt->execute();
+        return $this->getElementById($this->dbConnProvider->dbc->lastInsertId());
     }
 
     /**

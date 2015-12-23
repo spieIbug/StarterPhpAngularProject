@@ -12,7 +12,13 @@ require_once('../classes/model/User.php');
  * Time: 16:01
  */
 class TestOfUsersJsonController extends UnitTestCase{
-    function testShouldGetJsonObject() {
+    function setUp() {
+        echo "<div style='border: 2px solid;border-radius: 5px;padding: 10px;margin: 5px;'>";
+    }
+    function tearDown() {
+        echo "</div>";
+    }
+    function testGetJsonObjectById1EqualAssert() {
         $userExpected =  new User();
         $userExpected->setId("1");
         $userExpected->setLogin("meyacine");
@@ -23,7 +29,7 @@ class TestOfUsersJsonController extends UnitTestCase{
         $user = $userController->getJsonObjectById(1);
         $this->assertEqual($userExpected, $user);
     }
-    function testShouldGetJsonObjectShouldNotBeEqual() {
+    function testGetJsonObjectById1NotEqualAssert() {
         $userExpected =  new User();
         $userExpected->setId("1");
         $userExpected->setLogin("myacine");
@@ -53,6 +59,12 @@ class TestOfUsersJsonController extends UnitTestCase{
         $userTest->setPwd("admin");
         $userTest->setFlag("1");
         $usersExpected[2] = $userTest;
+        $userTest =  new User();
+        $userTest->setId("5");
+        $userTest->setLogin("root");
+        $userTest->setPwd("root");
+        $userTest->setFlag("1");
+        $usersExpected[3] = $userTest;
         $usersExpected = json_encode($usersExpected);
         $userController = new UsersController();
         $users = $userController->getJsonArray();
@@ -69,5 +81,24 @@ class TestOfUsersJsonController extends UnitTestCase{
         $userController = new UsersController();
         $users = $userController->getJsonArray();
         $this->assertNotEqual($usersExpected, $users);
+    }
+    function testSaveJsonObjectShouldSaveUser(){
+        $user = new User();
+        $user->setLogin("root");
+        $user->setPwd("root");
+        $user->setFlag("1");
+        $user = json_encode($user);
+        $controller = new UsersController();
+        $this->assertEqual($controller->saveJsonObject($user),'false');
+    }
+    function testUpdateJsonObjectShouldUpdateUser(){
+        $user = new User();
+        $user->setId("5");
+        $user->setLogin("root");
+        $user->setPwd("root");
+        $user->setFlag("1");
+        $user = json_encode($user);
+        $controller = new UsersController();
+        $this->assertEqual($controller->updateJsonObject($user),'true');
     }
 }

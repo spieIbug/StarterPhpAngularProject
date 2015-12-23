@@ -1,6 +1,6 @@
 <?php
 include_once(dirname(__FILE__) . '/../repositories/UsersRepository.php');
-include_once(dirname(__FILE__) . '/../controllers/Service.php');
+include_once(dirname(__FILE__) . '/../controllers/Controller.php');
 include_once(dirname(__FILE__) . '/../model/User.php');
 /**
  * Created by PhpStorm.
@@ -8,7 +8,7 @@ include_once(dirname(__FILE__) . '/../model/User.php');
  * Date: 16/12/2015
  * Time: 15:57
  */
-class UsersController implements Service{
+class UsersController implements Controller{
     private $usersRepository;
     /**
      * UsersController constructor.
@@ -38,15 +38,34 @@ class UsersController implements Service{
      * @return mixed
      */
     public function saveJsonObject($jsonObject) {
-        // TODO: Implement saveJsonObject() method.
+        $data = json_decode($jsonObject, true);
+        $user = new User();
+        $user->setLogin($data['login']);
+        $user->setPwd($data['pwd']);
+        $user->setFlag($data['flag']);
+        return json_encode($this->usersRepository->saveElement($user));
     }
 
     /**
      * @param $jsonArray
-     * @return mixed
+     * @throws Exception
      */
     public function saveJsonArray($jsonArray) {
-        // TODO: Implement saveJsonArray() method.
+        $error = 'Always throw this error';
+        throw new Exception($error);
     }
 
+    /**
+     * @param $jsonObject
+     * @return mixed
+     */
+    public function updateJsonObject($jsonObject) {
+        $data = json_decode($jsonObject, true);
+        $user = new User();
+        $user->setId($data['id']);
+        $user->setLogin($data['login']);
+        $user->setPwd($data['pwd']);
+        $user->setFlag($data['flag']);
+        return json_encode($this->usersRepository->updateElement($user));
+    }
 }

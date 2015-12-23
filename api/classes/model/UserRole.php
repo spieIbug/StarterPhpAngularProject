@@ -1,4 +1,6 @@
 <?php
+require_once(dirname(__FILE__).'/Role.php');
+require_once(dirname(__FILE__).'/User.php');
 /**
  * Created by PhpStorm.
  * Classe model des roles attribués aux users
@@ -7,19 +9,33 @@
  * Time: 10:47
  */
 class UserRole implements \JsonSerializable{
+    private $id;
+    //  Référence à l'utilisateur.
     private $userId;
+    //  Référence au role.
     private $roleId;
     private $flag;
 
     /**
      * UserRole constructor.
-     * @param $userId
      */
-    public function __construct($userId, $roleId, $flag) {
-        $this->userId = $userId;
-        $this->roleId = $roleId;
-        $this->flag = $flag;
+    public function __construct() {
     }
+
+    /**
+     * @return mixed
+     */
+    public function getId() {
+        return $this->id;
+    }
+
+    /**
+     * @param mixed $id
+     */
+    public function setId($id) {
+        $this->id = $id;
+    }
+
 
     /**
      * @return mixed
