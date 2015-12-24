@@ -14,7 +14,6 @@ class User implements \JsonSerializable{
 
     /**
      * User constructor.
-     * @param $id
      */
     public function __construct() {
     }

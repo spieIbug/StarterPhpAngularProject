@@ -60,7 +60,7 @@ class TestOfUsersJsonController extends UnitTestCase{
         $userTest->setFlag("1");
         $usersExpected[2] = $userTest;
         $userTest =  new User();
-        $userTest->setId("5");
+        $userTest->setId("7");
         $userTest->setLogin("root");
         $userTest->setPwd("root");
         $userTest->setFlag("1");

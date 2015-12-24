@@ -1,7 +1,7 @@
 <?php
-include_once(dirname(__FILE__) . '/../repositories/UsersRepository.php');
-include_once(dirname(__FILE__) . '/../controllers/Controller.php');
-include_once(dirname(__FILE__) . '/../model/User.php');
+require_once(dirname(__FILE__) . '/../repositories/UsersRepository.php');
+require_once(dirname(__FILE__) . '/../controllers/Controller.php');
+require_once(dirname(__FILE__) . '/../model/User.php');
 /**
  * Created by PhpStorm.
  * User: yacmed
@@ -24,6 +24,15 @@ class UsersController implements Controller{
      */
     public function getJsonObjectById($id) {
         return json_encode($this->usersRepository->getElementById($id));
+    }
+
+    /**
+     * @param $jsonData
+     * @return string
+     */
+    public function checkLogin($jsonData) {
+        $userData = json_decode($jsonData, true);
+        return json_encode($this->usersRepository->isLoginOk($userData['login'],$userData['pwd']));
     }
 
     /**

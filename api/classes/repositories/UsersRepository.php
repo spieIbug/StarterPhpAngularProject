@@ -36,14 +36,17 @@ class UsersRepository implements Repository{
      * @return mixed
      */
     public function isLoginOk($login, $pwd){
-        $stmt = $this->dbConnProvider->dbc->prepare("SELECT * FROM users WHERE login = :login AND pwd =:pwd AND flag = 1");
+        $stmt = $this->dbConnProvider->dbc->prepare("SELECT users.id, users.login, users.flag FROM users WHERE login = :login AND pwd =:pwd AND flag = 1");
         $stmt->bindParam('login', $login, PDO::PARAM_STR);
         $stmt->bindParam('pwd', $pwd, PDO::PARAM_STR);
         $stmt->execute();
         $this->user=$stmt->fetchObject('User');
-        if ($this->user->getId()!=null) {
-            return $this->user;
+        if ($this->user!=null){
+            if ($this->user->getId()!=null) {
+                return $this->user;
+            } else return false;
         } else return false;
+
     }
     /**
      * @return mixed
@@ -118,5 +121,4 @@ class UsersRepository implements Repository{
         $stmt->bindParam('id', $id, PDO::PARAM_STR);
         return $stmt->execute();
     }
-
 }
